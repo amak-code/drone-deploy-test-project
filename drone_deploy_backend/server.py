@@ -11,6 +11,13 @@ client = OpenAI()
 app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
 
+# Endpoint to retrieve drone data
+@app.route("/api/drone-data", methods=["GET"])
+def get_drone_data():
+    return jsonify(drone_data)
+
+
+# Endpoint to handle user queries with OpenAI integration
 @app.route("/api/query", methods=["POST"])
 def query():
     data = request.json
@@ -43,10 +50,6 @@ def query():
     
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-    
-    
-    
- 
 
 
 if __name__ == "__main__":
